@@ -8,31 +8,29 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import us.bojie.bloom_compose.ui.theme.BloomcomposeTheme
+import us.bojie.bloom_compose.ui.theme.BloomTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BloomcomposeTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
+            BloomTheme {
+                WelcomePage()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun WelcomePage() {
+
 }
 
-@Preview(showBackground = true)
+
+@Preview
 @Composable
-fun DefaultPreview() {
-    BloomcomposeTheme {
-        Greeting("Android")
+fun WelcomePagePreview() {
+    BloomTheme {
+        WelcomePage()
     }
 }
