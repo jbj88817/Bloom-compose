@@ -55,11 +55,11 @@ fun BloomTheme(
     val systemUiController = rememberSystemUiController()
     if (darkTheme) {
         systemUiController.setSystemBarsColor(
-            color = Green900
+            color = Gray
         )
     } else {
         systemUiController.setSystemBarsColor(
-            color = Pink100
+            color = Color.White
         )
     }
 

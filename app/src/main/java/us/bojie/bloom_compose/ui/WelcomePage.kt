@@ -12,15 +12,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import us.bojie.bloom_compose.R
-import us.bojie.bloom_compose.ui.theme.BloomTheme
-import us.bojie.bloom_compose.ui.theme.Gray
-import us.bojie.bloom_compose.ui.theme.Green300
-import us.bojie.bloom_compose.ui.theme.Pink900
+import us.bojie.bloom_compose.ui.theme.*
 
 @Composable
 fun WelcomePage() {
     val darkTheme = isSystemInDarkTheme()
+    val systemUiController = rememberSystemUiController()
+    if (darkTheme) {
+        systemUiController.setSystemBarsColor(
+            color = Green900
+        )
+    } else {
+        systemUiController.setSystemBarsColor(
+            color = Pink100
+        )
+    }
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
@@ -62,18 +70,7 @@ fun WelcomePage() {
                 color = if (darkTheme) Color.White else Gray
             )
             Spacer(modifier = Modifier.height(30.dp))
-            Button(
-                onClick = {}, shape = MaterialTheme.shapes.medium,
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = if (darkTheme) Green300 else Gray,
-                    contentColor = MaterialTheme.colors.background
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp)
-            ) {
-                Text(text = "Create account", Modifier.padding(top = 8.dp, bottom = 8.dp))
-            }
+            StyledButton("Create account", {})
             Spacer(modifier = Modifier.height(24.dp))
             TextButton(
                 onClick = {},
