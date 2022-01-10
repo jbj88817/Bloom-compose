@@ -34,7 +34,7 @@ fun BottomNavigationBar() {
                 selectedContentColor = MaterialTheme.colors.onPrimary,
                 unselectedContentColor = MaterialTheme.colors.onPrimary.copy(0.4f),
                 alwaysShowLabel = true,
-                selected = false,
+                selected = item.isSelected,
                 onClick = {
                     /* Add code later */
                 }
@@ -43,8 +43,13 @@ fun BottomNavigationBar() {
     }
 }
 
-sealed class NavigationItem(val route: String, val icon: Int, val title: String) {
-    object Home : NavigationItem("home", R.drawable.ic_home, "Home")
+sealed class NavigationItem(
+    val route: String,
+    val icon: Int,
+    val title: String,
+    val isSelected: Boolean = false
+) {
+    object Home : NavigationItem("home", R.drawable.ic_home, "Home", true)
     object Favorites : NavigationItem("favorites", R.drawable.ic_favorite_border, "Favorites")
     object Profile : NavigationItem("profile", R.drawable.ic_account_circle, "Profile")
     object Cart : NavigationItem("cart", R.drawable.ic_shopping_cart, "Cart")
