@@ -11,4 +11,4 @@ val White850 = Color(0XD9FFFFFF)
 // Dark
 val Green900 = Color(0XFF2D3B2D)
 val Green300 = Color(0XFFB8C9B8)
-val White150 = Color(0X26FFFFFF)
+val White150 = Color(0X05FFFFFF)

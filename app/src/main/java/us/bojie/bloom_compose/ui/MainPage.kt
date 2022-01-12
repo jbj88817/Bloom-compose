@@ -5,8 +5,11 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -16,13 +19,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import us.bojie.bloom_compose.R
+import us.bojie.bloom_compose.model.NavigationItem
+import us.bojie.bloom_compose.model.RowFlower
+import us.bojie.bloom_compose.model.getRowFlowerData
 
 @ExperimentalAnimationApi
 @ExperimentalComposeUiApi
@@ -40,12 +48,30 @@ fun MainPage() {
             Spacer(modifier = Modifier.height(16.dp))
             SearchBar()
             Spacer(modifier = Modifier.height(24.dp))
-            Header("Browse themes", Modifier.padding(horizontal = 16.dp)) {
-                Icon(
-                    painterResource(id = R.drawable.ic_filter_list),
-                    contentDescription = "Filter",
-                    Modifier.size(24.dp)
-                )
+            LazyColumn(Modifier.fillMaxSize()) {
+                item {
+                    Header("Browse themes", Modifier.padding(horizontal = 16.dp))
+//                        Icon(
+//                            painterResource(id = R.drawable.ic_filter_list),
+//                            contentDescription = "Filter",
+//                            Modifier.size(24.dp)
+//                        )
+//                    }
+                }
+                item { Spacer(modifier = Modifier.height(16.dp)) }
+
+                item {
+                    LazyRow(
+                        Modifier.padding(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        val rowFlowerData = getRowFlowerData()
+
+                        items(rowFlowerData.size) { index ->
+                            RowFlowerCard(rowFlower = rowFlowerData[index])
+                        }
+                    }
+                }
             }
         }
     }
@@ -120,6 +146,46 @@ private fun SearchBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun RowFlowerCard(rowFlower: RowFlower) {
+    Card(
+        Modifier
+            .height(136.dp)
+            .width(130.dp)
+            .background(MaterialTheme.colors.surface),
+        shape = MaterialTheme.shapes.small,
+        elevation = 4.dp
+    ) {
+
+        Column(
+            Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.surface)
+        ) {
+            Image(
+                painter = painterResource(id = rowFlower.image),
+                contentDescription = rowFlower.title,
+                Modifier
+                    .height(100.dp),
+                contentScale = ContentScale.Crop
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colors.surface)) {
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = rowFlower.title,
+                    style = MaterialTheme.typography.h2,
+                    color = MaterialTheme.colors.onPrimary,
+                    modifier = Modifier.height(36.dp)
+                )
+            }
+        }
+    }
+}
+
+@Composable
 fun BottomNavigationBar() {
     val items = listOf(
         NavigationItem.Home,
@@ -145,18 +211,6 @@ fun BottomNavigationBar() {
             )
         }
     }
-}
-
-sealed class NavigationItem(
-    val route: String,
-    val icon: Int,
-    val title: String,
-    val isSelected: Boolean = false
-) {
-    object Home : NavigationItem("home", R.drawable.ic_home, "Home", true)
-    object Favorites : NavigationItem("favorites", R.drawable.ic_favorite_border, "Favorites")
-    object Profile : NavigationItem("profile", R.drawable.ic_account_circle, "Profile")
-    object Cart : NavigationItem("cart", R.drawable.ic_shopping_cart, "Cart")
 }
 
 @ExperimentalComposeUiApi
