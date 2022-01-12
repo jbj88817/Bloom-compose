@@ -37,8 +37,34 @@ fun MainPage() {
                 .padding(it)
                 .background(MaterialTheme.colors.background)
         ) {
+            Spacer(modifier = Modifier.height(16.dp))
             SearchBar()
+            Spacer(modifier = Modifier.height(24.dp))
+            Header("Browse themes", Modifier.padding(horizontal = 16.dp)) {
+                Icon(
+                    painterResource(id = R.drawable.ic_filter_list),
+                    contentDescription = "Filter",
+                    Modifier.size(24.dp)
+                )
+            }
         }
+    }
+}
+
+@Composable
+fun Header(
+    title: String,
+    modifier: Modifier = Modifier,
+    trailingIcon: @Composable (() -> Unit)? = null
+) {
+    Row(modifier.fillMaxWidth()) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.h1,
+            color = MaterialTheme.colors.onPrimary
+        )
+        Spacer(modifier = modifier.weight(1f))
+        trailingIcon?.invoke()
     }
 }
 
@@ -57,7 +83,7 @@ private fun SearchBar(modifier: Modifier = Modifier) {
                 Icon(
                     painterResource(id = R.drawable.ic_search),
                     contentDescription = "Search",
-                    modifier.size(18.dp)
+                    Modifier.size(18.dp)
                 )
 
                 Spacer(modifier = modifier.width(8.dp))
