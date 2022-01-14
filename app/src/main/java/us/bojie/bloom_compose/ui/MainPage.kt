@@ -51,12 +51,6 @@ fun MainPage() {
             LazyColumn(Modifier.fillMaxSize()) {
                 item {
                     Header("Browse themes", Modifier.padding(horizontal = 16.dp))
-//                        Icon(
-//                            painterResource(id = R.drawable.ic_filter_list),
-//                            contentDescription = "Filter",
-//                            Modifier.size(24.dp)
-//                        )
-//                    }
                 }
                 item { Spacer(modifier = Modifier.height(16.dp)) }
 
@@ -70,6 +64,18 @@ fun MainPage() {
                         items(rowFlowerData.size) { index ->
                             RowFlowerCard(rowFlower = rowFlowerData[index])
                         }
+                    }
+                }
+
+                item { Spacer(modifier = Modifier.height(24.dp)) }
+
+                item {
+                    Header("Design your home garden", Modifier.padding(horizontal = 16.dp)) {
+                        Icon(
+                            painterResource(id = R.drawable.ic_filter_list),
+                            contentDescription = "Filter",
+                            Modifier.size(24.dp)
+                        )
                     }
                 }
             }
@@ -150,8 +156,7 @@ fun RowFlowerCard(rowFlower: RowFlower) {
     Card(
         Modifier
             .height(136.dp)
-            .width(130.dp)
-            .background(MaterialTheme.colors.surface),
+            .width(130.dp),
         shape = MaterialTheme.shapes.small,
         elevation = 4.dp
     ) {
@@ -159,7 +164,6 @@ fun RowFlowerCard(rowFlower: RowFlower) {
         Column(
             Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.surface)
         ) {
             Image(
                 painter = painterResource(id = rowFlower.image),
@@ -172,13 +176,12 @@ fun RowFlowerCard(rowFlower: RowFlower) {
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colors.surface)) {
+            ) {
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
                     text = rowFlower.title,
                     style = MaterialTheme.typography.h2,
                     color = MaterialTheme.colors.onPrimary,
-                    modifier = Modifier.height(36.dp)
                 )
             }
         }
