@@ -234,7 +234,9 @@ fun DesignGardenCard(flower: Flower) {
             Spacer(modifier = Modifier.weight(1f))
             Divider()
         }
-        Checkbox(checked = flower.isChecked, onCheckedChange = null)
+        Checkbox(checked = flower.isChecked, onCheckedChange = null,  colors = CheckboxDefaults.colors(
+            checkmarkColor = MaterialTheme.colors.onSecondary
+        ))
     }
 }
 

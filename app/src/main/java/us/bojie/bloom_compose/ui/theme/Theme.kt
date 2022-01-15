@@ -8,6 +8,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
+
+private val LightColorPalette = lightColors(
+    primary = Pink100,
+//    primaryVariant = Gray,
+    secondary = Pink900,
+    background = Color.White,
+    surface = White850,
+    onPrimary = Gray,
+    onSecondary = Color.White,
+    onBackground = Gray,
+    onSurface = Gray,
+)
+
 private val DarkColorPalette = darkColors(
     primary = Green900,
 //    primaryVariant = Gray,
@@ -20,26 +33,14 @@ private val DarkColorPalette = darkColors(
     onSurface = White850,
 )
 
-private val LightColorPalette = lightColors(
-    primary = Pink100,
-//    primaryVariant = Gray,
-    secondary = Pink900,
-    background = Color.White,
-    surface = White850,
-    onPrimary = Gray,
-    onSecondary = Color.White,
-    onBackground = Gray,
-    onSurface = Gray,
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
-)
+/* Other default colors to override
+background = Color.White,
+surface = Color.White,
+onPrimary = Color.White,
+onSecondary = Color.Black,
+onBackground = Color.Black,
+onSurface = Color.Black,
+*/
 
 @Composable
 fun BloomTheme(
