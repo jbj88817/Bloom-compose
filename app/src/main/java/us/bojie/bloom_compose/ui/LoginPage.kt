@@ -11,10 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import us.bojie.bloom_compose.ui.theme.BloomTheme
 
 @Composable
-fun LoginPage() {
+fun LoginPage(navController: NavController) {
     Column(
         modifier = Modifier
             .background(color = MaterialTheme.colors.background)
@@ -54,16 +55,14 @@ fun LoginPage() {
             color = MaterialTheme.colors.onPrimary
         )
         Spacer(modifier = Modifier.height(16.dp))
-        StyledButton(textContent = "Log in", onClick = { })
-    }
-
-
-}
-
-@Preview
-@Composable
-fun LoginPagePreview() {
-    BloomTheme {
-        LoginPage()
+        StyledButton(textContent = "Log in", onClick = { navController.navigate("main") })
     }
 }
+
+//@Preview
+//@Composable
+//fun LoginPagePreview() {
+//    BloomTheme {
+//        LoginPage()
+//    }
+//}

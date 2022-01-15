@@ -29,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import us.bojie.bloom_compose.R
 import us.bojie.bloom_compose.model.NavigationItem
 import us.bojie.bloom_compose.model.Flower
@@ -38,7 +39,7 @@ import us.bojie.bloom_compose.model.getRowFlowerData
 @ExperimentalAnimationApi
 @ExperimentalComposeUiApi
 @Composable
-fun MainPage() {
+fun MainPage(navController: NavController) {
     Scaffold(
         bottomBar = { BottomNavigationBar() }
     ) {

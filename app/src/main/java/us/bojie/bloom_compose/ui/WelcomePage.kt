@@ -12,12 +12,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import us.bojie.bloom_compose.R
 import us.bojie.bloom_compose.ui.theme.*
 
 @Composable
-fun WelcomePage() {
+fun WelcomePage(navController: NavController) {
     val darkTheme = isSystemInDarkTheme()
     val systemUiController = rememberSystemUiController()
     if (darkTheme) {
@@ -73,7 +74,7 @@ fun WelcomePage() {
             StyledButton("Create account", {})
             Spacer(modifier = Modifier.height(24.dp))
             TextButton(
-                onClick = {},
+                onClick = { navController.navigate("login") },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color.Transparent,
                     contentColor = if (darkTheme) Color.White else Pink900,
@@ -90,10 +91,10 @@ fun WelcomePage() {
 }
 
 
-@Preview
-@Composable
-fun WelcomePagePreview() {
-    BloomTheme {
-        WelcomePage()
-    }
-}
+//@Preview
+//@Composable
+//fun WelcomePagePreview() {
+//    BloomTheme {
+//        WelcomePage()
+//    }
+//}
