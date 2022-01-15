@@ -15,6 +15,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -53,15 +54,15 @@ fun MainPage() {
             LazyColumn(
                 Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 16.dp)) {
+            ) {
                 item {
-                    Header("Browse themes")
+                    Header("Browse themes", Modifier.padding(horizontal = 16.dp))
                 }
                 item { Spacer(modifier = Modifier.height(16.dp)) }
 
                 item {
                     LazyRow(
-                        modifier = Modifier.padding(end = 0.dp),
+                        modifier = Modifier.padding(start = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         val rowFlowerData = getRowFlowerData()
@@ -75,7 +76,7 @@ fun MainPage() {
                 item { Spacer(modifier = Modifier.height(24.dp)) }
 
                 item {
-                    Header("Design your home garden") {
+                    Header("Design your home garden", Modifier.padding(horizontal = 16.dp)) {
                         Icon(
                             painterResource(id = R.drawable.ic_filter_list),
                             contentDescription = "Filter",
@@ -202,7 +203,13 @@ fun RowFlowerCard(flower: Flower) {
 
 @Composable
 fun DesignGardenCard(flower: Flower) {
-    Row {
+    Row(
+        Modifier
+            .height(64.dp)
+            .padding(bottom = 8.dp, start = 16.dp, end = 16.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Image(
             painter = painterResource(id = flower.image),
             contentDescription = flower.title,
@@ -212,7 +219,8 @@ fun DesignGardenCard(flower: Flower) {
             contentScale = ContentScale.Crop
         )
         Spacer(modifier = Modifier.width(16.dp))
-        Column {
+        Column(verticalArrangement = Arrangement.Center, modifier = Modifier.weight(1f)) {
+            Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = flower.title,
                 style = MaterialTheme.typography.h2,
@@ -223,11 +231,10 @@ fun DesignGardenCard(flower: Flower) {
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onPrimary,
             )
-
+            Spacer(modifier = Modifier.weight(1f))
             Divider()
         }
-        Spacer(modifier = Modifier.weight(1f))
-        RadioButton(selected = false, onClick = {})
+        Checkbox(checked = flower.isChecked, onCheckedChange = null)
     }
 }
 
@@ -259,16 +266,22 @@ fun BottomNavigationBar() {
     }
 }
 
-@ExperimentalComposeUiApi
-@ExperimentalAnimationApi
-@Preview
-@Composable
-fun MainPagePreview() {
-    MainPage()
-}
+//@ExperimentalComposeUiApi
+//@ExperimentalAnimationApi
+//@Preview
+//@Composable
+//fun MainPagePreview() {
+//    MainPage()
+//}
+
+//@Preview
+//@Composable
+//fun BottomNavigationBarPreview() {
+//    BottomNavigationBar()
+//}
 
 @Preview
 @Composable
-fun BottomNavigationBarPreview() {
-    BottomNavigationBar()
+fun DesignGardenCardPreview() {
+    DesignGardenCard(flower = Flower(R.drawable.aglaonema, "Aglaonema"))
 }

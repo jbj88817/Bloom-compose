@@ -15,7 +15,7 @@ sealed class NavigationItem(
     object Cart : NavigationItem("cart", R.drawable.ic_shopping_cart, "Cart")
 }
 
-data class Flower(@DrawableRes val image: Int, val title: String)
+data class Flower(@DrawableRes val image: Int, val title: String, val isChecked: Boolean = false)
 
 fun getRowFlowerData() = listOf(
     Flower(R.drawable.desert_chic, "Desert chic"),
@@ -26,7 +26,7 @@ fun getRowFlowerData() = listOf(
 )
 
 fun getColumnFlowerData() = listOf(
-    Flower(R.drawable.monstera, "Monstera"),
+    Flower(R.drawable.monstera, "Monstera", true),
     Flower(R.drawable.aglaonema, "Aglaonema"),
     Flower(R.drawable.peace_lily, "Peace Lily"),
     Flower(R.drawable.fiddle_leaf_tree, "Fiddle leaf tree"),
