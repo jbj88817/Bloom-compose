@@ -10,12 +10,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
@@ -24,12 +26,12 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import us.bojie.bloom_compose.R
 import us.bojie.bloom_compose.model.NavigationItem
-import us.bojie.bloom_compose.model.RowFlower
+import us.bojie.bloom_compose.model.Flower
+import us.bojie.bloom_compose.model.getColumnFlowerData
 import us.bojie.bloom_compose.model.getRowFlowerData
 
 @ExperimentalAnimationApi
@@ -48,21 +50,24 @@ fun MainPage() {
             Spacer(modifier = Modifier.height(16.dp))
             SearchBar()
             Spacer(modifier = Modifier.height(24.dp))
-            LazyColumn(Modifier.fillMaxSize()) {
+            LazyColumn(
+                Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp)) {
                 item {
-                    Header("Browse themes", Modifier.padding(horizontal = 16.dp))
+                    Header("Browse themes")
                 }
                 item { Spacer(modifier = Modifier.height(16.dp)) }
 
                 item {
                     LazyRow(
-                        Modifier.padding(horizontal = 16.dp),
+                        modifier = Modifier.padding(end = 0.dp),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         val rowFlowerData = getRowFlowerData()
 
                         items(rowFlowerData.size) { index ->
-                            RowFlowerCard(rowFlower = rowFlowerData[index])
+                            RowFlowerCard(flower = rowFlowerData[index])
                         }
                     }
                 }
@@ -70,13 +75,20 @@ fun MainPage() {
                 item { Spacer(modifier = Modifier.height(24.dp)) }
 
                 item {
-                    Header("Design your home garden", Modifier.padding(horizontal = 16.dp)) {
+                    Header("Design your home garden") {
                         Icon(
                             painterResource(id = R.drawable.ic_filter_list),
                             contentDescription = "Filter",
                             Modifier.size(24.dp)
                         )
                     }
+                }
+
+                item { Spacer(modifier = Modifier.height(16.dp)) }
+
+                val columnData = getColumnFlowerData()
+                items(columnData.size) { index ->
+                    DesignGardenCard(flower = columnData[index])
                 }
             }
         }
@@ -152,7 +164,7 @@ private fun SearchBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun RowFlowerCard(rowFlower: RowFlower) {
+fun RowFlowerCard(flower: Flower) {
     Card(
         Modifier
             .height(136.dp)
@@ -166,8 +178,8 @@ fun RowFlowerCard(rowFlower: RowFlower) {
                 .fillMaxSize()
         ) {
             Image(
-                painter = painterResource(id = rowFlower.image),
-                contentDescription = rowFlower.title,
+                painter = painterResource(id = flower.image),
+                contentDescription = flower.title,
                 Modifier
                     .height(100.dp),
                 contentScale = ContentScale.Crop
@@ -179,12 +191,43 @@ fun RowFlowerCard(rowFlower: RowFlower) {
             ) {
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    text = rowFlower.title,
+                    text = flower.title,
                     style = MaterialTheme.typography.h2,
                     color = MaterialTheme.colors.onPrimary,
                 )
             }
         }
+    }
+}
+
+@Composable
+fun DesignGardenCard(flower: Flower) {
+    Row {
+        Image(
+            painter = painterResource(id = flower.image),
+            contentDescription = flower.title,
+            Modifier
+                .size(64.dp)
+                .clip(RoundedCornerShape(4.dp)),
+            contentScale = ContentScale.Crop
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Column {
+            Text(
+                text = flower.title,
+                style = MaterialTheme.typography.h2,
+                color = MaterialTheme.colors.onPrimary,
+            )
+            Text(
+                text = "This is a description",
+                style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.onPrimary,
+            )
+
+            Divider()
+        }
+        Spacer(modifier = Modifier.weight(1f))
+        RadioButton(selected = false, onClick = {})
     }
 }
 
